@@ -31,7 +31,7 @@ class VertexList {
 
 	public VertexList(int n){
 		for (int i = 0; i < n; i++){
-			vertexList.add(new VertexData(0, 0));
+			vertexList.add(new VertexData(-1, -1));
 		}
 	}
 
@@ -67,6 +67,9 @@ public class bfs_search {
 		// Set all vertices to -1 to show they have
 		// not been visited.
 		VertexList bfsInfo = new VertexList(graph.length);
+		// Set our starting vertex to have a distance
+		// of zero.
+		bfsInfo.vertexList.get(source).distance = 0;
 		// A queue for holding vertices
 		Queue<Integer> queue = new LinkedList<Integer>();
 		queue.add(source);
@@ -74,9 +77,10 @@ public class bfs_search {
 		// Traverse the graph
 		while (!queue.isEmpty()){
 			int vertex = queue.remove();
+			System.out.println("current vertex: " + vertex + "\t distance: " + bfsInfo.vertexList.get(vertex).distance + "\t predecessor: " + bfsInfo.vertexList.get(vertex).predecessor + "\n");
 			for (int i = 0; i < graph[vertex].length; i++){
 				int nextVertex = graph[vertex][i];
-				if (bfsInfo.vertexList.get(nextVertex).distance == 0){
+				if (bfsInfo.vertexList.get(nextVertex).distance == -1){
 					bfsInfo.vertexList.get(nextVertex).distance = bfsInfo.vertexList.get(vertex).distance + 1;
 					bfsInfo.vertexList.get(nextVertex).predecessor = vertex;
 					queue.add(nextVertex);
