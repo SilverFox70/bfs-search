@@ -75,10 +75,13 @@ def shortest_path(bfs_info, start, stop)
 	current_vertex = bfs_info[stop]
 	origin_vertex = bfs_info[start]
 	path = []
-	at_origin = false
 	while current_vertex != origin_vertex
 		path.push(current_vertex)
-		current_vertex = bfs_info[current_vertex.predecessor]	
+		if current_vertex.predecessor.nil?
+			return path = nil
+		else
+			current_vertex = bfs_info[current_vertex.predecessor]	
+		end
 	end
 	# Bring us to the origin itself
 	path.push(current_vertex)
@@ -96,9 +99,19 @@ adj_list = [[1],
 						[]
 					 ]
 
-bfs_info = do_bfs(adj_list, 3);
-bfs_info.each {|e| puts "vertex: #{e.v_num}  distance: #{e.distance}  predecessor: #{e.predecessor}"}
-puts " Shortest Path from vertex 0 to vertex 3"
-path = shortest_path(bfs_info, 3, 0)
-path.each {|e| puts "vertex: #{e.v_num}  distance: #{e.distance}  predecessor: #{e.predecessor}"}
+for i in 1..7
+	bfs_info = do_bfs(adj_list, i);
+	puts "=" * 30
+	puts " BFS vertex 0 to vertex #{i}"
+	bfs_info.each {|e| puts "vertex: #{e.v_num}  distance: #{e.distance}  predecessor: #{e.predecessor}"}
+	puts "-" * 30
+	puts " Shortest Path from vertex 0 to vertex #{i}"
+	path = shortest_path(bfs_info, i, 0)
+	if path.nil?
+		puts "There is no path between these vertices"
+	else
+		path.each {|e| puts "vertex: #{e.v_num}  distance: #{e.distance}  predecessor: #{e.predecessor}"}
+	end
+end
+
 
