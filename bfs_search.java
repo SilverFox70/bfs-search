@@ -71,8 +71,8 @@ public class bfs_search {
 		Queue<Integer> queue = new LinkedList<Integer>();
 		queue.add(source);
 
-		Iterator iterator = queue.iterator();
-		while (iterator.hasNext()){
+		// Traverse the graph
+		while (!queue.isEmpty()){
 			int vertex = queue.remove();
 			for (int i = 0; i < graph[vertex].length; i++){
 				int nextVertex = graph[vertex][i];
