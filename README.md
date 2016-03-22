@@ -5,6 +5,12 @@ In this repo you will find Breadth First Search algorithms for graphs.  The firs
 + A ruby version can be found in <tt>bfs_search.rb</tt>. 
 + There is also a Java solution: the code is viewable in <tt>bfs_search.java</tt> and the compiled files (VertexData.class, VertexList.class, and bfs_search.class) can be downloaded to run locally...provided you have Java 1.8 installed.
 
+These examples take an [adjacency list](https://en.wikipedia.org/wiki/Adjacency_list) and then perform a breadth-first search across the graph starting from a given (source) position, finally returning a list of each vertex, its distance from the source, and its predecessor.
+
+Below is an image depicting the graph that the algorithm performs a BFS on.
+
+![Graph](/imgs/vertex_graph.png "Graph")
+
 Coming soon:
 
 + Augmentation to the algorithm to return the shortest path
