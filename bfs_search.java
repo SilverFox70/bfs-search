@@ -31,14 +31,16 @@ class VertexList {
 
 	public VertexList(int n){
 		for (int i = 0; i < n; i++){
-			vertexList.add(new VertexData(-1, -1));
+			vertexList.add(new VertexData(0, 0));
 		}
 	}
 
 	public String getVertexList(){
 		String s = "";
+		int count = 0;
 		for (VertexData v: vertexList){
-			s += "distance: " + v.distance + "\t predecessor: " + v.predecessor + "\n";
+			s += "vertex: " + count + "\t distance: " + v.distance + "\t predecessor: " + v.predecessor + "\n";
+			count ++;
 		}
 		return s;
 	}
@@ -47,8 +49,8 @@ class VertexList {
 public class bfs_search {
 
 	public static void main(String args[]){
-		// A queue for holding vertices
-		Queue queue = new LinkedList();
+
+		// Create our adjacency list
 		int[][] adjacencyList = new int[][]{{1}, 
 								    {0, 4, 5},
 								    {3, 4, 5},
@@ -57,14 +59,31 @@ public class bfs_search {
 								    {1, 2, 6},
 								    {3, 5},
 								    {}
-							 	   };
+							 	   };					 	   
 		DoBFS(adjacencyList, 3);
 	}
 
 	public static void DoBFS(int[][] graph, int source){
-			System.out.println("Source: " + source);
-			VertexList bfsInfo = new VertexList(graph.length);
-			System.out.println(bfsInfo.getVertexList());
+		// Set all vertices to -1 to show they have
+		// not been visited.
+		VertexList bfsInfo = new VertexList(graph.length);
+		// A queue for holding vertices
+		Queue<Integer> queue = new LinkedList<Integer>();
+		queue.add(source);
+
+		Iterator iterator = queue.iterator();
+		while (iterator.hasNext()){
+			int vertex = queue.remove();
+			for (int i = 0; i < graph[vertex].length; i++){
+				int nextVertex = graph[vertex][i];
+				if (bfsInfo.vertexList.get(nextVertex).distance == 0){
+					bfsInfo.vertexList.get(nextVertex).distance = bfsInfo.vertexList.get(vertex).distance + 1;
+					bfsInfo.vertexList.get(nextVertex).predecessor = vertex;
+					queue.add(nextVertex);
+				}
+			}
 		}
+		System.out.println(bfsInfo.getVertexList());
+	}
 }
 
