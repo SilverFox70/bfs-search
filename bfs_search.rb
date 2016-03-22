@@ -17,8 +17,11 @@ class Queue
 	end
 end
 
+# Note: it was a specific, albeit not very Ruby-like,
+# choice to not use attr_accessor and instead create
+# setter methods.
 class BFS_Vertex_Info
-	attr_reader :distance, :predecessor
+	attr_accessor :distance, :predecessor
 
 	def initialize(distance, predecessor)
 		@distance = distance
