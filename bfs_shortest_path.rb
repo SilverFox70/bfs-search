@@ -18,14 +18,17 @@ class Queue
 end
 
 class BFS_Vertex_Info
-	attr_accessor :distance, :predecessor
+	attr_accessor :distance, :predecessor, :v_num
 
-	def initialize(distance, predecessor)
+	def initialize(v_num, distance, predecessor)
+		@v_num = v_num
 		@distance = distance
 		@predecessor = predecessor
 	end
 
 end
+
+
 
 # Performs a breadth-first search on a graph
 # graph is an adjacency list (array), source
@@ -34,7 +37,7 @@ def do_bfs(graph, source)
 	bfs_info = []
 
 	# Initialize all of our vertices to have nil values
-	graph.each_with_index {|v, i| bfs_info[i] = BFS_Vertex_Info.new(nil, nil)}
+	graph.each_with_index {|v, i| bfs_info[i] = BFS_Vertex_Info.new(i, nil, nil)}
 
 	# Set our initial (starting) vertex to have a distance of 0
 	# since it is the origin of our search
@@ -66,7 +69,6 @@ end
 
 def shortest_path(bfs_info, start, stop)
 	current_vertex = bfs_info[stop]
-	p "cv: #{current_vertex.predecessor}"
 	origin_vertex = bfs_info[start]
 	path = []
 	at_origin = false
@@ -74,9 +76,11 @@ def shortest_path(bfs_info, start, stop)
 		path.push(current_vertex)
 		current_vertex = bfs_info[current_vertex.predecessor]	
 	end
+	path.push(current_vertex)
 	path
 end
 
+# List must be in order of vertices!
 adj_list = [[1], 
 						[0, 4, 5],
 						[3, 4, 5],
@@ -88,8 +92,8 @@ adj_list = [[1],
 					 ]
 
 bfs_info = do_bfs(adj_list, 3);
-bfs_info.each_with_index {|e, i| puts "vertex: #{i}  distance: #{e.distance}  predecessor: #{e.predecessor}"}
+bfs_info.each {|e| puts "vertex: #{e.v_num}  distance: #{e.distance}  predecessor: #{e.predecessor}"}
 puts " Shortest Path from vertex 0 to vertex 3"
 path = shortest_path(bfs_info, 3, 0)
-path.each_with_index {|e, i| puts "vertex: #{i}  distance: #{e.distance}  predecessor: #{e.predecessor}"}
+path.each {|e| puts "vertex: #{e.v_num}  distance: #{e.distance}  predecessor: #{e.predecessor}"}
 
