@@ -17,9 +17,6 @@ class Queue
 	end
 end
 
-# Note: it was a specific, albeit not very Ruby-like,
-# choice to not use attr_accessor and instead create
-# setter methods.
 class BFS_Vertex_Info
 	attr_accessor :distance, :predecessor
 
@@ -28,13 +25,6 @@ class BFS_Vertex_Info
 		@predecessor = predecessor
 	end
 
-	def set_distance(d)
-		@distance = d
-	end
-
-	def set_predecessor(obj)
-		@predecessor = obj
-	end
 end
 
 # Performs a breadth-first search on a graph
@@ -48,7 +38,7 @@ def do_bfs(graph, source)
 
 	# Set our initial (starting) vertex to have a distance of 0
 	# since it is the origin of our search
-	bfs_info[source].set_distance(source)
+	bfs_info[source].distance = 0
 
 	queue = Queue.new
 	queue.enqueue(source)
@@ -62,8 +52,8 @@ def do_bfs(graph, source)
 		# haven't visited it yet.
 		graph[vertex].each do |v|
 			if bfs_info[v].distance.nil?
-				bfs_info[v].set_distance(bfs_info[vertex].distance + 1)
-				bfs_info[v].set_predecessor(vertex)
+				bfs_info[v].distance = bfs_info[vertex].distance + 1
+				bfs_info[v].predecessor = vertex
 				queue.enqueue(v)
 			end
 		end
