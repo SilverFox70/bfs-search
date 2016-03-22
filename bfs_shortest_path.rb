@@ -67,6 +67,10 @@ def do_bfs(graph, source)
 	bfs_info
 end
 
+# Note: this finds a shortest path, but that path may not
+# be unique depending on the graph. There is no logic
+# employed to deal with situations where there is no path
+# between the start and end vertices.
 def shortest_path(bfs_info, start, stop)
 	current_vertex = bfs_info[stop]
 	origin_vertex = bfs_info[start]
@@ -76,6 +80,7 @@ def shortest_path(bfs_info, start, stop)
 		path.push(current_vertex)
 		current_vertex = bfs_info[current_vertex.predecessor]	
 	end
+	# Bring us to the origin itself
 	path.push(current_vertex)
 	path
 end

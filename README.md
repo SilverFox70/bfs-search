@@ -11,8 +11,11 @@ Below is an image depicting the graph that the algorithm performs a BFS on.
 
 ![Graph](/imgs/vertex_graph.png "Graph")
 
+For Rubyists, there is also a file <tt>bfs_shortest_path.rb</tt> which will return the shortest path between any 
+two vertices in the graph. The shortest path may not be unique, in which case it will return the first shortest path found. The logic for this can be found in the shortest_path method. At this time (3.22.16) there is no logic employed
+in that method to deal with cases where there is no path between the starting and ending vertices.
+
 Coming soon:
 
-+ Augmentation to the algorithm to return the shortest path
 + Augmentation to return the length of the shortest path
 + possible implementations in C# and Python.
